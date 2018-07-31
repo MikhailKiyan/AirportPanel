@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AirportPanel.Contract\AirportPanel.Contract.csproj" />
+    <ProjectReference Include="..\AirportPanel.Model\AirportPanel.Model.csproj" />
+  </ItemGroup>
+
 </Project>

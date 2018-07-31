@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AirportPanel.WebApplication.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class AirportPanelSecurityDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public AirportPanelSecurityDbContext(DbContextOptions<AirportPanelSecurityDbContext> options)
             : base(options)
         {
         }
