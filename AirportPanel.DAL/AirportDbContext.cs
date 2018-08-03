@@ -13,7 +13,5 @@
 		public virtual DbSet<Flight> Flights { get; set; }
 
 		public virtual DbSet<FlightStatus> FlightStatuses { get; set; }
-
-
 	}
 }
