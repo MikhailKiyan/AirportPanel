@@ -13,11 +13,15 @@ namespace AirportPanel.WebApplication
 	using Microsoft.AspNetCore.HttpsPolicy;
 	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.EntityFrameworkCore;
-	using AirportPanel.WebApplication.Data;
 	using Microsoft.Extensions.Configuration;
 	using Microsoft.Extensions.DependencyInjection;
 
+	using Newtonsoft.Json.Serialization;
+
+	using AirportPanel.WebApplication.Data;
 	using AirportPanel.DAL;
+
+
 	public class Startup
 	{
 		public Startup(IConfiguration configuration) {
@@ -40,10 +44,16 @@ namespace AirportPanel.WebApplication
 			services.AddDbContext<AirportPanelDbContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("AirportPanelConnection")));
 
-			services.AddDefaultIdentity<IdentityUser>()
-				.AddEntityFrameworkStores<AirportPanelSecurityDbContext>();
+			services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AirportPanelSecurityDbContext>();
 
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+				// Added for Kendo
+				// Maintain property names during serialization. See:
+				// https://github.com/aspnet/Announcements/issues/19
+				.AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
+			// Added for Kendo
+			services.AddKendo();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +77,9 @@ namespace AirportPanel.WebApplication
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
+
+			// Added for Kendo
+			app.UseKendo(env);
 		}
 	}
 }
