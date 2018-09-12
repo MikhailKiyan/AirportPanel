@@ -19,16 +19,18 @@ namespace AirportPanel.WebApplication
 	using Newtonsoft.Json.Serialization;
 
 	using AirportPanel.WebApplication.Data;
-	using AirportPanel.DAL;
-
+	
 
 	public class Startup
 	{
-		public Startup(IConfiguration configuration) {
-			Configuration = configuration;
+		public Startup(IConfiguration configuration, IHostingEnvironment environment) {
+			this.Configuration = configuration;
+			this.Environment = environment;
 		}
 
 		public IConfiguration Configuration { get; }
+
+		public IHostingEnvironment Environment { get; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
@@ -38,11 +40,7 @@ namespace AirportPanel.WebApplication
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
-			services.AddDbContext<AirportPanelSecurityDbContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("SecurityConnection")));
-
-			services.AddDbContext<AirportPanelDbContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("AirportPanelConnection")));
+			DAL.Sturtup.AddDbContexts(services);
 
 			services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AirportPanelSecurityDbContext>();
 

@@ -4,16 +4,14 @@ using AirportPanel.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AirportPanel.DAL.Migrations
 {
-    [DbContext(typeof(AirportPanelDbContext))]
-    [Migration("20180731190824_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(AirportPanelDataDbContext))]
+    partial class AirportPanelDataDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
