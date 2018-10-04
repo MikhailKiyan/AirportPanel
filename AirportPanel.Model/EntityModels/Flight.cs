@@ -6,7 +6,7 @@
 
 	public class Flight : BaseModel<Guid>
     {
-		public virtual FlightType FlightType { get; set; }
+		public virtual FlightType? FlightType { get; set; }
 
 		public virtual DateTime? ArrivalOn { get; set; }
 

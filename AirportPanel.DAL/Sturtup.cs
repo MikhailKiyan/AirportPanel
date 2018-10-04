@@ -1,4 +1,5 @@
 ﻿using AirportPanel.WebApplication.Data;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,9 +9,19 @@ using System.Text;
 
 namespace AirportPanel.DAL
 {
-	public class Sturtup
+	public class Startup
 	{
-		public static void AddDbContexts(IServiceCollection services)
+		public Startup(IConfiguration configuration, IHostingEnvironment environment)
+		{
+			this.Configuration = configuration;
+			this.Environment = environment;
+		}
+
+		public IConfiguration Configuration { get; }
+
+		public IHostingEnvironment Environment { get; }
+
+		public void AddDbContexts(IServiceCollection services)
 		{
 			services.AddDbContext<AirportPanelSecurityDbContext>(options =>
 				options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AirportPanelSecurity;Trusted_Connection=True;MultipleActiveResultSets=true"));

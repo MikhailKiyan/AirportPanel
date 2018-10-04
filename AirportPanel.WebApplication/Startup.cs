@@ -40,8 +40,9 @@ namespace AirportPanel.WebApplication
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
-			DAL.Sturtup.AddDbContexts(services);
-
+			new DAL.Startup(this.Configuration, this.Environment)
+				.AddDbContexts(services);
+		
 			services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AirportPanelSecurityDbContext>();
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)

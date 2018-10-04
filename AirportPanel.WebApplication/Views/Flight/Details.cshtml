@@ -1,0 +1,67 @@
+﻿@model AirportPanel.Model.EntityModels.Flight
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Flight</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FlightType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FlightType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ArrivalOn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ArrivalOn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartureOn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DepartureOn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Number)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedOn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MofidiedOn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MofidiedOn)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MofidiedBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MofidiedBy)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
