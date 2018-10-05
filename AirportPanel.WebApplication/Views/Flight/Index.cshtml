@@ -1,78 +1,107 @@
 ﻿@model IEnumerable<AirportPanel.Model.EntityModels.Flight>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+	<a asp-action="Create">Create New</a>
 </p>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FlightType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ArrivalOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DepartureOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Number)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MofidiedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MofidiedBy)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FlightType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ArrivalOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartureOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Number)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MofidiedOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MofidiedBy)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.FlightType)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.ArrivalOn)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.DepartureOn)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Number)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.CreatedOn)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.CreatedBy)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.MofidiedOn)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.MofidiedBy)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model) {
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.FlightType)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.ArrivalOn)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.DepartureOn)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Number)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.CreatedOn)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.CreatedBy)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.MofidiedOn)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.MofidiedBy)
+				</td>
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+					<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+					<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>
+
+<h1>OData:</h1>
+
+
+@(Html.Kendo().Grid<Flight>()
+		.Name("grid")
+		.Columns(columns => {
+			columns.Bound(e => e.Id).Filterable(false);
+			columns.Bound(e => e.FlightType);
+			columns.Bound(e => e.ArrivalOn).Width(120)/*.Format("{0:MM/dd/yyyy}")*/;
+			columns.Bound(e => e.DepartureOn).Width(120)/*.Format("{0:MM/dd/yyyy}")*/;
+			columns.Bound(e => e.Number).Width(260);
+			columns.Bound(e => e.Status).Width(150);
+		})
+		.DataSource(dataSource => dataSource
+			.Custom()
+			.Type("odata-v4")
+			.Transport(transport =>
+				transport.Read(read => read.Url("https://localhost:44372/odata/Flights"))
+			)
+			//.PageSize(5)
+			//.ServerPaging(true)
+			//.ServerSorting(true)
+			//.ServerFiltering(true)
+		)
+		//.Pageable()
+		//.Sortable()
+		//.Filterable()
+)

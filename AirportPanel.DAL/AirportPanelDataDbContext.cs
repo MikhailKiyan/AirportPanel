@@ -4,7 +4,7 @@
 
 	using AirportPanel.Model.EntityModels;
 	
-	public class AirportPanelDataDbContext: DbContext
+	public class AirportPanelDataDbContext : DbContext
     {
 		public AirportPanelDataDbContext(DbContextOptions<AirportPanelDataDbContext> options = null)
 			: base(options) {

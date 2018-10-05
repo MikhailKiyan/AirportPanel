@@ -40,9 +40,9 @@ namespace AirportPanel.WebApplication
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
 			// services.AddSingleton<AirportPanelSecurityDbContext>(_ => AirportPanelSecurityDbContext.Create());
-			services.AddSingleton<IRepository<Flight>, Repository<Flight>>();
-			services.AddSingleton<IRepository<FlightStatus>, Repository<FlightStatus>>();
-			services.AddSingleton<IUnitOfWork, UnitOfWork>();
+			// services.AddSingleton<IRepository<Flight>, Repository<Flight>>();
+			// services.AddSingleton<IRepository<FlightStatus>, Repository<FlightStatus>>();
+			// services.AddSingleton<IUnitOfWork, UnitOfWork>();
 
 
 
@@ -89,13 +89,16 @@ namespace AirportPanel.WebApplication
 				routes.MapRoute(
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
+				/*
 				routes.MapODataServiceRoute(
 					routeName: "odata",
 					routePrefix: "odata",
-					model: GetEdmModel());
+					model: GetEdmModel());*/
 			});
 
 			app.UseKendo(env);
+
+			app.UseOData(routeName: "odata", routePrerix: "odata", model: GetEdmModel());
 		}
 
 		private static IEdmModel GetEdmModel() {
