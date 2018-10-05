@@ -40,7 +40,7 @@ namespace AirportPanel.DAL.Migrations
 
                     b.Property<string>("Number");
 
-                    b.Property<int?>("StatusId");
+                    b.Property<Guid?>("StatusId");
 
                     b.HasKey("Id");
 
@@ -51,9 +51,8 @@ namespace AirportPanel.DAL.Migrations
 
             modelBuilder.Entity("AirportPanel.Model.EntityModels.FlightStatus", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<Guid>("CreatedBy");
 

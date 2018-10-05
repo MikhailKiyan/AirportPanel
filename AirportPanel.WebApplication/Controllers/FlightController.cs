@@ -7,12 +7,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AirportPanel.DAL;
 using AirportPanel.Model.EntityModels;
+using AirportPanel.Utility.DB;
 
 namespace AirportPanel.WebApplication.Controllers
 {
 	public class FlightController : Controller
 	{
 		private readonly AirportPanelDataDbContext _context;
+
+		readonly UnitOfWork uow;
 
 		public FlightController(AirportPanelDataDbContext context) {
 			_context = context;

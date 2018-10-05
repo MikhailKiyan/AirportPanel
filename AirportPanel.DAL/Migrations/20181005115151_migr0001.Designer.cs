@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AirportPanel.DAL.Migrations
 {
     [DbContext(typeof(AirportPanelDataDbContext))]
-    [Migration("20181004164333_iii")]
-    partial class iii
+    [Migration("20181005115151_migr0001")]
+    partial class migr0001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,7 @@ namespace AirportPanel.DAL.Migrations
 
                     b.Property<string>("Number");
 
-                    b.Property<int?>("StatusId");
+                    b.Property<Guid?>("StatusId");
 
                     b.HasKey("Id");
 
@@ -53,9 +53,8 @@ namespace AirportPanel.DAL.Migrations
 
             modelBuilder.Entity("AirportPanel.Model.EntityModels.FlightStatus", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<Guid>("CreatedBy");
 

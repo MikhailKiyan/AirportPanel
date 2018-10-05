@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AirportPanel.Contract\AirportPanel.Contract.csproj" />
+    <ProjectReference Include="..\AirportPanel.DAL\AirportPanel.DAL.csproj" />
     <ProjectReference Include="..\AirportPanel.Model\AirportPanel.Model.csproj" />
   </ItemGroup>
 

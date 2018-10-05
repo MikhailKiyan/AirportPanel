@@ -3,7 +3,9 @@
 	using System;
 
 	public abstract class BaseModel
-    {
+	{
+		public virtual Guid Id { get; set; }
+
 		public virtual DateTime? CreatedOn { get; set; }
 
 		public virtual Guid CreatedBy { get; set; }
@@ -13,16 +15,11 @@
 		public virtual Guid MofidiedBy { get; set; }
 	}
 
-	public abstract class BaseModel<Guid> : BaseModel
-	{
-		public virtual Guid Id { get; set; }
-	}
-
-	public abstract class Entity : BaseModel<Guid>
+	public abstract class Entity : BaseModel
 	{
 	}
 
-	public abstract class Lookup: BaseModel<int>
+	public abstract class Lookup: BaseModel
 	{
 		public virtual string Name { get; set; }
 

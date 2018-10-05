@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AirportPanel.DAL.Migrations
 {
-    public partial class init : Migration
+    public partial class migr0001 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,12 +11,11 @@ namespace AirportPanel.DAL.Migrations
                 name: "FlightStatuses",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<Guid>(nullable: false),
                     MofidiedOn = table.Column<DateTime>(nullable: true),
                     MofidiedBy = table.Column<Guid>(nullable: false),
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Discription = table.Column<string>(nullable: true)
                 },
@@ -30,16 +28,16 @@ namespace AirportPanel.DAL.Migrations
                 name: "Flights",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<Guid>(nullable: false),
                     MofidiedOn = table.Column<DateTime>(nullable: true),
                     MofidiedBy = table.Column<Guid>(nullable: false),
-                    Id = table.Column<Guid>(nullable: false),
-                    FlightType = table.Column<byte>(nullable: false),
+                    FlightType = table.Column<byte>(nullable: true),
                     ArrivalOn = table.Column<DateTime>(nullable: true),
                     DepartureOn = table.Column<DateTime>(nullable: true),
                     Number = table.Column<string>(nullable: true),
-                    StatusId = table.Column<int>(nullable: true)
+                    StatusId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {

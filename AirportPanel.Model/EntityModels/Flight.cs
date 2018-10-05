@@ -4,7 +4,7 @@
 	using AirportPanel.Model.Enums;
 	using System;
 
-	public class Flight : BaseModel<Guid>
+	public class Flight : BaseModel
     {
 		public virtual FlightType? FlightType { get; set; }
 

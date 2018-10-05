@@ -6,7 +6,7 @@
 	
 	public class AirportPanelDataDbContext: DbContext
     {
-		public AirportPanelDataDbContext(DbContextOptions<AirportPanelDataDbContext> options)
+		public AirportPanelDataDbContext(DbContextOptions<AirportPanelDataDbContext> options = null)
 			: base(options) {
 		}
 

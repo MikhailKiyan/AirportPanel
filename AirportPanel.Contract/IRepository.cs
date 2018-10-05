@@ -1,38 +1,34 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-
-using AirportPanel.Abstracts;
-
-
-namespace AirportPanel.Contract
+﻿namespace AirportPanel.Contract
 {
-	public interface IRepository<TEntity> where TEntity : BaseModel<Guid>
+	using System;
+	using System.Threading.Tasks;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Linq.Expressions;
+	using AirportPanel.Abstracts;
+
+	public interface IRepository<TEntity>
+		where TEntity : BaseModel
 	{
-		void Create(params TEntity[] entities);
+		Task Create(params TEntity[] entities);
 
-		void Remove(params TEntity[] entities);
+		Task Remove(params TEntity[] entities);
 
-		void RemoveById(Guid id);
+		Task Remove(Guid id);
 
-		void Update(params TEntity[] entities);
+		Task Update(params TEntity[] entities);
 
-		IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> selector,
+		Task<IEnumerable<TEntity>> Get(
+			Expression<Func<TEntity, bool>> selector,
 			params Expression<Func<TEntity, object>>[] includedProperties);
 
-		TEntity GetById(Guid id, params Expression<Func<TEntity, object>>[] includedProperties);
+		Task<TEntity> Get(
+			Guid id,
+			params Expression<Func<TEntity, object>>[] includedProperties);
+
+		Task<IEnumerable<TEntity>> Get(
+			params Expression<Func<TEntity, object>>[] includedProperties);
+
+		Task Save();
 	}
-
-	public interface IRepositoryAsync<TEntity> where TEntity : BaseModel<Guid>
-	{
-		Task CreateAsync(params TEntity[] entities);
-
-		Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> selector,
-		params Expression<Func<TEntity, object>>[] includedProperties);
-
-		Task<IEnumerable<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includedProperties);
-	}
-
 }

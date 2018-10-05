@@ -6,6 +6,9 @@ namespace AirportPanel.WebApplication
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Threading.Tasks;
+	using Microsoft.OData.Edm;
+	using Microsoft.AspNet.OData.Extensions;
+	using Microsoft.AspNet.OData.Builder;
 	using Microsoft.AspNetCore.Builder;
 	using Microsoft.AspNetCore.Identity;
 	using Microsoft.AspNetCore.Hosting;
@@ -19,7 +22,9 @@ namespace AirportPanel.WebApplication
 	using Newtonsoft.Json.Serialization;
 
 	using AirportPanel.WebApplication.Data;
-	
+	using AirportPanel.Model.EntityModels;
+	using AirportPanel.Contract;
+	using AirportPanel.Utility.DB;
 
 	public class Startup
 	{
@@ -34,6 +39,13 @@ namespace AirportPanel.WebApplication
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services) {
+			// services.AddSingleton<AirportPanelSecurityDbContext>(_ => AirportPanelSecurityDbContext.Create());
+			services.AddSingleton<IRepository<Flight>, Repository<Flight>>();
+			services.AddSingleton<IRepository<FlightStatus>, Repository<FlightStatus>>();
+			services.AddSingleton<IUnitOfWork, UnitOfWork>();
+
+
+
 			services.Configure<CookiePolicyOptions>(options => {
 				// This lambda determines whether user consent for non-essential cookies is needed for a given request.
 				options.CheckConsentNeeded = context => true;
@@ -44,6 +56,8 @@ namespace AirportPanel.WebApplication
 				.AddDbContexts(services);
 		
 			services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<AirportPanelSecurityDbContext>();
+
+			services.AddOData();
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
 				// Added for Kendo
@@ -75,10 +89,20 @@ namespace AirportPanel.WebApplication
 				routes.MapRoute(
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
+				routes.MapODataServiceRoute(
+					routeName: "odata",
+					routePrefix: "odata",
+					model: GetEdmModel());
 			});
 
-			// Added for Kendo
 			app.UseKendo(env);
+		}
+
+		private static IEdmModel GetEdmModel() {
+			ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+			builder.EntitySet<Flight>("Flights");
+			builder.EntitySet<FlightStatus>("FlightStatuses");
+			return builder.GetEdmModel();
 		}
 	}
 }
