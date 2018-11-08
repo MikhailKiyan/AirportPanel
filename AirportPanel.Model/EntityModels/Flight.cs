@@ -15,5 +15,7 @@
 		public virtual string Number { get; set; }
 
 		public virtual FlightStatus Status { get; set; }
+		
+		public virtual string Test { get; set; }
 	}
 }
